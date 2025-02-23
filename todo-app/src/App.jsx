@@ -12,7 +12,7 @@ function App() {
   const [filter, setFilter] = useState('all')
   const handleChange = (event) => {
     setNewTasks(event.target.value);
-  }  
+  } 
   
   const addTask = () => {
     if(newTasks.trim() !== ''){
@@ -49,6 +49,19 @@ function App() {
     localStorage.setItem('todos', JSON.stringify(todo));
   }, [todo])
 
+// TODO make the function functional
+
+  const [ draggedItem, setDraggedItem ] = useState(null)
+  const handleDragStart = index => setDraggedItem(index)
+  const handleDragOver = e => e.preventDefault();
+  const handleDrop = index => {
+    const newItems = [...todo]
+    const item = newItems.splice(draggedItem, 1)[0];
+    newItems.splice(index, 0, item);
+    setTodo(newItems)
+  }
+  
+
   return (
     <>
       <img src="./src/assets/images/bg-desktop-dark.jpg" alt="bg-desktop-dark" className="bg-top-img"/>
@@ -64,8 +77,15 @@ function App() {
         </div>
         <div className="todo-list">
           {filteredItems.map((td, index) => 
-            <div key={index}> 
-              <div className="list-one todo" >
+            <div 
+              key={index}
+            > 
+              <div className="list-one todo" 
+                              draggable
+                              onDragStart={() => handleDragStart(index)}
+                              onDragOver={(e) => handleDragOver(e)}
+                              onDrop={() => handleDrop(index)}
+              >
                 <div className="block">
                   <img src="./src/assets/images/icon-check.svg"
                     alt="tick" className="tick"
@@ -87,8 +107,12 @@ function App() {
 
             <div className="active">
               <p className="activated act" onClick={() => setFilter('all')} >All</p>
-              <p className="act" onClick={() => setFilter('active')}>Active</p>
-              <p className="act" onClick={() => setFilter('completed')}>Completed</p>
+              <p className="act" 
+              // style={{backgroundColor: setFilter('active') ? 'red' : 'white'}} 
+              onClick={() => setFilter('active')}>Active</p>
+              <p className="act" 
+              // style={{backgroundColor: setFilter('completed') ? 'red' : 'white'}}
+              onClick={() => setFilter('completed')}>Completed</p>
             </div>
             <div className="clear-completed act" onClick={clearCompleted}> <p>Clear Completed</p></div>
 
