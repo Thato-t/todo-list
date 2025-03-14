@@ -8,6 +8,12 @@
   padding:0;
   // outline: 2px solid red;
 }
+.light-theme{
+  $veryDarkBlue:   hsl(0, 0%, 98%);
+  $lightGrayishBlue: hsl(236, 33%, 92%); 
+  $veryDarkDesaturatedBlue: hsl(236, 33%, 92%);
+  $lightGrayishBlue: hsl(234, 39%, 85%);
+}
 @mixin todo-bg{
   background-color:$veryDarkDesaturatedBlue;
   border-radius:3px;
@@ -16,26 +22,18 @@
   display: flex;
   align-items: center;
 }
-.light-theme{
-  $veryDarkBlue:   hsl(0, 0%, 98%);
-  $lightGrayishBlue: hsl(236, 33%, 92%); 
-  $veryDarkDesaturatedBlue: hsl(236, 33%, 92%);
-  $lightGrayishBlue: hsl(234, 39%, 85%);
-}
 body{
   background-color: $veryDarkBlue;
   color:$lightGrayishBlue;
   font-size:$fs;
   font-family:Verdana, Helvetica, Arial, sans-serif;
 }
-.bg-top-img{
-  width:fit-content;
-}
 .wrapper{
   width:fit-content;
   margin-inline:auto;
   transform: translateY(-160px);
   width:400px;
+
 }
 .header{
   margin-bottom:30px;
@@ -48,7 +46,7 @@ body{
   font-size:2rem;
   text-transform:uppercase;
 }
-.sun-icon{
+.icon{
   width:20px;
   height:20px;
   cursor:pointer;
@@ -152,17 +150,17 @@ hr{
 .dash{
   text-decoration:line-through;
 }
-
+.hide{
+  display:none;
+}
 @media (max-width:375px){
   .bg-top-img{
     display: none;
   }
   .mobile-bg{
     display: flex;
-    width:fit-content;
   }
   .wrapper{
     max-width:320px;
-    // margin-inline:auto;
   }
 }

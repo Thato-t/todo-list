@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
+import './scss/style.css'
 
 function App() {
 
+  const sunIcon = document.querySelector('.sun-icon');
+  const moonIcon = document.querySelector('.moon-icon');
 
   const [ todo, setTodo ] = useState(() => {
     const getItems = localStorage.getItem('todos')
@@ -39,17 +42,18 @@ function App() {
     return true;
   })
 
+// TODO clear the the key at localStorage 
   const clearCompleted = () => {
     const newItems = todo.filter((_, index) => !isCompleted[index]);
     setTodo(newItems);
     setIsCompleted(Array(newItems.length).fill(false)); 
+     
   }
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todo));
   }, [todo])
 
-// TODO make the function functional
 
   const [ draggedItem, setDraggedItem ] = useState(null)
   const handleDragStart = index => setDraggedItem(index)
@@ -60,6 +64,16 @@ function App() {
     newItems.splice(index, 0, item);
     setTodo(newItems)
   }
+
+  const lightTheme = () => {
+    const wrapper = document.querySelector('.wrapper');
+    sunIcon.classList.add('hide');
+    moonIcon.classList.remove('hide')
+  }
+  const darkTheme = () => {
+    sunIcon.classList.remove('hide')
+    moonIcon.classList.add('hide')
+  }
   
 
   return (
@@ -69,7 +83,13 @@ function App() {
       <div className="wrapper">
         <div className="header">
           <p className="title">Todo</p>
-          <img src="./src/assets/images/icon-sun.svg" alt="icon-sun" className="sun-icon"/>
+          <img src="./src/assets/images/icon-sun.svg" alt="icon-sun"
+          onClick={lightTheme}
+          className="sun-icon icon"/>
+          <img src="./src/assets/images/icon-moon.svg" alt="icon-sun"
+          onClick={darkTheme}
+          className="moon-icon hide icon"/>
+
         </div>
         <div className="new-todo todo">
           <img src="./src/assets/images/icon-check.svg" alt="" className="tick" onClick={addTask}/>
@@ -77,9 +97,7 @@ function App() {
         </div>
         <div className="todo-list">
           {filteredItems.map((td, index) => 
-            <div 
-              key={index}
-            > 
+            <div key={index}> 
               <div className="list-one todo" 
                               draggable
                               onDragStart={() => handleDragStart(index)}
@@ -90,7 +108,9 @@ function App() {
                   <img src="./src/assets/images/icon-check.svg"
                     alt="tick" className="tick"
                     onClick={() => lineThrough(index)}/>
-                  <span className="todos" style={{textDecoration: isCompleted[index] ? 'line-through' : ''}}>{ td }</span>
+                  <span className="todos" 
+                  style={{textDecoration: isCompleted[index] ? 'line-through' : ''}}
+                  >{ td }</span>
                 </div> 
                 <img src="./src/assets/images/icon-cross.svg" alt="cross" className="cross" onClick={() => deleteTask(index)}/>
               </div>
@@ -124,7 +144,7 @@ function App() {
 
         <div className="attribution">
           Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-          Coded by <a href="#">Thato</a>.
+          Coded by <a href="https://www.github/Thato-t">Thato</a>.
         </div>
       </div>
     </>
