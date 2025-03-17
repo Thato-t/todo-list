@@ -42,7 +42,7 @@ function App() {
     return true;
   })
 
-// TODO clear the the key at localStorage 
+// TODO clear the the key at localStorage
   const clearCompleted = () => {
     const newItems = todo.filter((_, index) => !isCompleted[index]);
     setTodo(newItems);
