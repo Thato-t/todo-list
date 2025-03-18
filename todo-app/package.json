@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "sass && vite build",
+    "dev": "vite && sass",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "sass": "sass src/scss:src/css"
